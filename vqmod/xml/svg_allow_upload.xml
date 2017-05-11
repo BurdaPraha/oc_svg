@@ -92,8 +92,10 @@
 
                     if (strpos($image, '.svg') !== false) {
                         $data['logo'] = renderSVG($image);
+                        $data['logo_svg'] = true;
                     }else {
                         $data['logo'] = $server . 'image/' . $image;
+                        $data['logo_svg'] = false;
                     }
                 ]]>
             </add>
@@ -111,10 +113,28 @@
 
                     if (strpos($image, '.svg') !== false) {
                         $data['logo'] = renderSVG($image);
+                        $data['logo_svg'] = true;
                     }else {
                         $data['logo'] = $server . 'image/' . $image;
+                        $data['logo_svg'] = false;
                     }
                 ]]>
+            </add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/*/template/common/header.tpl">
+        <operation info="return svg data">
+            <search position="replace">
+                <![CDATA[<img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" />]]>
+            </search>
+            <add>
+                <![CDATA[
+                <?php if (isset($logo_svg) && true == $logo_svg) { ?>
+                    <?php echo $logo; ?>
+                <?php } else { ?>
+                    <img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" />
+                <?php } ?>]]>
             </add>
         </operation>
     </file>
