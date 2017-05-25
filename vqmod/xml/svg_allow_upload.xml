@@ -152,7 +152,6 @@
         </operation>
     </file>
 
-
     <file path="catalog/view/theme/*/template/common/header.tpl">
         <operation info="return svg data">
             <search position="replace">
@@ -163,7 +162,6 @@
             </add>
         </operation>
     </file>
-
 
     <file path="catalog/controller/common/footer.php">
         <operation info="support for custom logo in footer">
@@ -180,8 +178,6 @@
             </add>
         </operation>
     </file>
-
-
 
     <file name="admin/controller/sale/order.php">
         <operation info="support for plugin: Free 9 Invoice Layout Template">
