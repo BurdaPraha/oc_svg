@@ -83,11 +83,13 @@
 
 
                     /**
+                     * Merge data about logo
+                     * @param $base
                      * @param $config_logo
                      * @param $https
                      * @return array
                      */
-                    function renderLogoData($config_logo, $https)
+                    function renderLogoData($base, $config_logo, $https)
                     {
                         $array              = array();
                         $array['logo']      = '';
@@ -98,19 +100,19 @@
                         {
                             if (strpos($image, '.svg') !== false)
                             {
-                                $array['logo'] = renderSVG($image);
-                                $array['logo_svg'] = true;
+                                $array['logo']      = renderSVG($image);
+                                $array['logo_svg']  = true;
 
                             }
                             else
                             {
                                 if ($https)
                                 {
-                                    $array['logo'] = HTTPS_CATALOG . 'image/' . $image;
+                                    $array['logo'] = $base . 'image/' . $image;
                                 }
                                 else
                                 {
-                                    $array['logo'] = HTTP_CATALOG . 'image/' . $image;
+                                    $array['logo'] = $base . 'image/' . $image;
                                 }
                             }
 
@@ -145,8 +147,18 @@
                 <![CDATA[
                     $config_logo   = $this->config->get('config_logo');
                     $have_https    = $this->request->server['HTTPS'];
-                    $logo_data     = renderLogoData($config_logo, $have_https);
+                    $logo_data     = renderLogoData($server, $config_logo, $have_https);
                     $data          = array_merge($data, $logo_data);
+                ]]>
+            </add>
+        </operation>
+        <operation info="return svg data">
+            <search position="after">
+                <![CDATA[$data['logo'] = '';]]>
+            </search>
+            <add>
+                <![CDATA[
+                    $data['logo_svg'] = false;
                 ]]>
             </add>
         </operation>
@@ -170,9 +182,14 @@
             </search>
             <add>
                 <![CDATA[
+                    if ($this->request->server['HTTPS']) {
+                        $server = $this->config->get('config_ssl');
+                    } else {
+                        $server = $this->config->get('config_url');
+                    }
                     $config_logo   = $this->config->get('config_logo');
                     $have_https    = $this->request->server['HTTPS'];
-                    $logo_data     = renderLogoData($config_logo, $have_https);
+                    $logo_data     = renderLogoData($server, $config_logo, $have_https);
                     $data          = array_merge($data, $logo_data);
                 ]]>
             </add>
@@ -185,9 +202,14 @@
 			if ($order_info['invoice_no']) {
 			]]></search>
             <add><![CDATA[
+                    if ($this->request->server['HTTPS']) {
+                        $server = $this->config->get('config_ssl');
+                    } else {
+                        $server = $this->config->get('config_url');
+                    }
                     $config_logo   = $this->config->get('config_logo');
                     $have_https    = $this->request->server['HTTPS'];
-                    $logo_data     = renderLogoData($config_logo, $have_https);
+                    $logo_data     = renderLogoData($server, $config_logo, $have_https);
                     $data          = array_merge($data, $logo_data);
 			]]></add>
         </operation>
