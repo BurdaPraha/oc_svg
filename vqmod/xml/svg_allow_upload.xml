@@ -86,10 +86,9 @@
                      * Merge data about logo
                      * @param $base
                      * @param $config_logo
-                     * @param $https
                      * @return array
                      */
-                    function renderLogoData($base, $config_logo, $https)
+                    function renderLogoData($base, $config_logo)
                     {
                         $array              = array();
                         $array['logo']      = '';
@@ -106,14 +105,7 @@
                             }
                             else
                             {
-                                if ($https)
-                                {
-                                    $array['logo'] = $base . 'image/' . $image;
-                                }
-                                else
-                                {
-                                    $array['logo'] = $base . 'image/' . $image;
-                                }
+                                $array['logo'] = $base . 'image/' . $image;
                             }
 
                         }
@@ -146,8 +138,7 @@
             <add>
                 <![CDATA[
                     $config_logo   = $this->config->get('config_logo');
-                    $have_https    = $this->request->server['HTTPS'];
-                    $logo_data     = renderLogoData($server, $config_logo, $have_https);
+                    $logo_data     = renderLogoData($server, $config_logo);
                     $data          = array_merge($data, $logo_data);
                 ]]>
             </add>
@@ -189,7 +180,7 @@
                     }
                     $config_logo   = $this->config->get('config_logo');
                     $have_https    = $this->request->server['HTTPS'];
-                    $logo_data     = renderLogoData($server, $config_logo, $have_https);
+                    $logo_data     = renderLogoData($server, $config_logo);
                     $data          = array_merge($data, $logo_data);
                 ]]>
             </add>
@@ -208,8 +199,7 @@
                         $server = $this->config->get('config_url');
                     }
                     $config_logo   = $this->config->get('config_logo');
-                    $have_https    = $this->request->server['HTTPS'];
-                    $logo_data     = renderLogoData($server, $config_logo, $have_https);
+                    $logo_data     = renderLogoData($server, $config_logo);
                     $data          = array_merge($data, $logo_data);
 			]]></add>
         </operation>
