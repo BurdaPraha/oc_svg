@@ -47,9 +47,9 @@
                 if('svg' == $extension) {
 
                     if ($this->request->server['HTTPS']) {
-                        return HTTPS_CATALOG . 'image/' . $filename;
+                        return $this->config->get('config_ssl') . 'image/' . $filename;
                     } else {
-                        return HTTP_CATALOG . 'image/' . $filename;
+                        return $this->config->get('config_url') . 'image/' . $filename;
                     }
                 }
 
