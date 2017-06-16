@@ -1,25 +1,27 @@
-# SVG support for Opencart 2.x
+# SVG support for [OpenCart 2.x](https://github.com/opencart/opencart)
 
 Because jpg / png logo are retro!
 
 ## Installation
 
-1. Requiring installed [Vqmod](https://github.com/vqmod/vqmod) because VqMod doesn't support installing via composer itself.
-2. `composer require burdapraha/oc_svg dev-master`
-3. Add this code to your composer.json project file:
+1. Requiring installed [vQmod](https://github.com/vqmod/vqmod) because vQmod doesn't support installing via composer itself.
+2. `composer require burdapraha/oc_svg`
+3. `composer require sasedev/composer-plugin-filecopier` for files manipulating
+4. Add this code to your composer.json project file, extra section:
 
 ```
-    "scripts": {
-        "post-install-cmd": [
-            "php -r \"copy('vendor/burdapraha/oc_svg/vqmod/xml/svg_allow_upload.xml', 'upload/vqmod/xml/svg_allow_upload.xml');\""
-        ],
-        "post-update-cmd": [
-            "php -r \"copy('vendor/burdapraha/oc_svg/vqmod/xml/svg_allow_upload.xml', 'upload/vqmod/xml/svg_allow_upload.xml');\""
+    "extra": {
+        "filescopier": [
+            {
+                "source": "vendor/burdapraha/oc_svg/upload",
+                "destination": "upload",
+                "debug": "true"
+            }
         ]
-    } 
+    }  
 ```
     
-It will move vqmod xml file to correct folder.
+It will move vQmod xml file to correct folder.
 
-5. optionally you can add row to your `.gitignore` file with path to tracy.xml (example: upload/vqmod/xml/svg_allow_upload.xml)
+5. optionally you can add row to your `.gitignore` file with path to svg.xml (example: upload/vqmod/xml/svg.xml)
 6. celebrate!
