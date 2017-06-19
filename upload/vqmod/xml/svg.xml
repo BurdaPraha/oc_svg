@@ -194,11 +194,12 @@
 			]]></search>
             <add><![CDATA[
                     if ($this->request->server['HTTPS']) {
-                        $server = $this->config->get('config_ssl');
+                        $server = isset($store_info['config_ssl']) && !empty($store_info['config_url']) ? $store_info['config_ssl'] : $this->config->get('config_ssl');
                     } else {
-                        $server = $this->config->get('config_url');
+                        $server = isset($store_info['config_url']) && !empty($store_info['config_url']) ? $store_info['config_url'] : $this->config->get('config_url');
                     }
-                    $config_logo   = $this->config->get('config_logo');
+
+                    $config_logo   = isset($store_info['config_logo']) ? $store_info['config_logo'] : $this->config->get('config_logo');
                     $logo_data     = renderLogoData($server, $config_logo);
                     $data          = array_merge($data, $logo_data);
 			]]></add>
