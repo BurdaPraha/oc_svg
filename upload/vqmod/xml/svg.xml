@@ -70,13 +70,15 @@
                      * Merge data about logo
                      * @param $base
                      * @param $config_logo
+                     * @param string $name
                      * @return array
                      */
-                    function renderLogoData($base, $config_logo)
+                    function renderLogoData($base, $config_logo, $name = "")
                     {
                         $array              = array();
                         $array['logo']      = '';
                         $array['logo_svg']  = false;
+                        $array['name']      = $name;
                         $image              = $config_logo;
 
                         if (is_file(DIR_IMAGE . $image))
@@ -122,7 +124,7 @@
             <add>
                 <![CDATA[
                     $config_logo   = $this->config->get('config_logo');
-                    $logo_data     = renderLogoData($server, $config_logo);
+                    $logo_data     = renderLogoData($server, $config_logo, $data['name']);
                     $data          = array_merge($data, $logo_data);
                 ]]>
             </add>
@@ -167,6 +169,17 @@
                     $logo_data     = renderLogoData($server, $config_logo);
                     $data          = array_merge($data, $logo_data);
                 ]]>
+            </add>
+        </operation>
+    </file>
+
+    <file path="catalog/view/theme/*/template/common/footer.tpl">
+        <operation info="return svg data">
+            <search position="replace">
+                <![CDATA[<img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" />]]>
+            </search>
+            <add>
+                <![CDATA[<?php echo renderLogo($logo, $logo_svg, $name); ?>]]>
             </add>
         </operation>
     </file>
