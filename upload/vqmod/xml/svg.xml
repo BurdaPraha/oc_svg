@@ -174,7 +174,7 @@
     </file>
 
     <file path="catalog/view/theme/*/template/common/footer.tpl">
-        <operation info="return svg data">
+        <operation info="return svg data" error="skip">
             <search position="replace">
                 <![CDATA[<img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" />]]>
             </search>
